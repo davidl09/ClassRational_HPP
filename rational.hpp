@@ -1,7 +1,7 @@
 #ifndef RATIONAL_HPP
 #define RATIONAL_HPP
 
-#include "parsing.hpp"
+#include "parsing/parsing.hpp"
 #include <iostream>
 #include <cmath>
 
