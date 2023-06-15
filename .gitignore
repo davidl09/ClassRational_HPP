@@ -2,6 +2,9 @@
 *.d
 build/
 .vscode/
+test.cpp
+*.txt
+
 # Compiled Object files
 *.slo
 *.lo
