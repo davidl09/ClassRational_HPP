@@ -3,9 +3,9 @@
 
 #include "parsing.hpp"
 #include <iostream>
+#include <cmath>
 
 namespace LinAlg{
-
     std::vector<long int> prime_fact(long int a){
         std::vector<long int> res;
         
@@ -125,20 +125,20 @@ namespace LinAlg{
             this->cleanup();
         }  
 
-        Rational(std::string& str){
+        Rational(const char a[]){
+            std::string str = a;
             Parsing::ShuntingYard<Rational> shunt(str);
             shunt.compute();
             *this = shunt.getResult();
         }
 
-        Rational(char chars[]){
-            std::string str = chars;
+        Rational(const std::string& str){
             Parsing::ShuntingYard<Rational> shunt(str);
             shunt.compute();
             *this = shunt.getResult();
         }
 
-        void set_value(std::string& expr){
+        void set_value(const std::string& expr){
             Parsing::ShuntingYard<Rational> shunt(expr);
             shunt.compute();
             *this = shunt.getResult();
@@ -162,8 +162,6 @@ namespace LinAlg{
         long int denom(){
             return denominator;
         }
-
-        
 
         std::string tostr(){
             return std::to_string(numerator) + (denominator == 1 ? "" : ("/" + std::to_string(denominator)));
@@ -265,20 +263,18 @@ namespace LinAlg{
             return *this;
         }
 
-        Rational operator^(Rational a){
-            Rational temp = *this;
-
-            if(a.denominator == 1){
-                for(int i = 0; i < a.numerator; ++i){
-                    temp.numerator *= a.numerator;
-                }
-                temp.cleanup();
-                return temp;
+        Rational operator^(Rational b){
+            if(this->numerator == 0){
+                *this = 1;
+                return *this;
             }
+            if(b.numerator == 1 && b.denominator == 1 || this->numerator == 1 && this->denominator == 1)
+                return *this;
 
-            temp.set_value(std::pow(this->approx(), a.approx()));
-            return temp;
+            return std::pow(this->approx(), b.approx());
         }
+
+
 
         bool operator>(Rational& a){
             return (*this - a).numerator > 0;
@@ -345,6 +341,12 @@ namespace LinAlg{
             return Rational((int)this->denominator, this->numerator);
         }
     };
+
+    Rational pow(Rational& a, Rational& b){
+        Rational temp(std::pow(a.approx(), b.approx()));
+        return temp;
+    }
+
 
     std::istream& operator>> (std::istream& in, Rational& r){
         std::string temp;
