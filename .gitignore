@@ -3,6 +3,7 @@
 build/
 .vscode/
 *.txt
+expr_parsing_cpp/
 
 # Compiled Object files
 *.slo
