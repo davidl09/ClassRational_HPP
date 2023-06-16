@@ -324,8 +324,6 @@ namespace LinAlg{
             return !(this->denominator == 1 && this->numerator == a);
         }
 
-
-
         void invert(){
             if(numerator == 0)
                 throw std::invalid_argument("Cannot invert fraction that has value 0\n");
