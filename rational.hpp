@@ -170,6 +170,10 @@ namespace LinAlg{
         double approx(){
             return (double)numerator/(double)denominator;
         }
+        
+        operator double(){
+            return (double)numerator/(double)denominator;
+        }
 
         Rational operator+(Rational a){
             return Rational((int)(this->numerator * a.denominator + a.numerator * this->denominator), (int)(a.denominator * this->denominator));
@@ -358,5 +362,4 @@ namespace LinAlg{
         return out;
     }
 }
-
 #endif
